@@ -60,7 +60,7 @@
           square.destY = data.destY;
           square.alpha = 0.05;
           
-          
+          checkCollisions();
         };
 
         const lerp = (v0, v1, alpha) =>{
@@ -134,7 +134,44 @@
             requestAnimationFrame(redraw);
         };
         
-        
+        const checkCollisions = () => {
+          const keys = Object.keys(squares);
+          const thisSquare = squares[hash];
+          for (let i = 0; i < keys.length; ++i){
+            const square = squares[keys[i]];
+            //if "square" is not this current one's square
+            if(square != squares[hash]){
+              //now check for the bounds and collisions and things
+              //personal note: squares are being drawn from their top L corner
+              if (thisSquare.x < square.x + square.width &&
+                  thisSquare.x + thisSquare.width > square.x &&
+                  thisSquare.y < square.y + square.height &&
+                  thisSquare.height + thisSquare.y > square.y) {
+                    if(moveUp){
+                      thisSquare.destY +=2;
+                    }
+
+                    if(moveDown) {
+                      thisSquare.destY -=2;
+                    }
+
+                    if(moveLeft){
+                      thisSquare.destX += 2;
+
+                    }
+          
+                    if(moveRight){
+                      thisSquare.destX -=2;
+                    } 
+                  }
+              
+            }
+            
+          }
+          socket.emit('movementUpdate', squares[hash]);
+
+        }
+
         const keyDownHandler = (e) => {
             var keyPressed = e.which;
 
