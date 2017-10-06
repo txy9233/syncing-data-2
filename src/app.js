@@ -102,7 +102,7 @@ io.on('connection', (sock) => {
   socket.square = {
     hash: xxh.h32(`${socket.id}${new Date().getTime()}`, 0xFFEE4422).toString(16),
     lastUpdate: new Date().getTime(),
-    x: getRandom(-1, 500)
+    x: getRandom(-1, 500),
     y: getRandom(-1, 500),
     height: 50,
     width: 50,
