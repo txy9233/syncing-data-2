@@ -134,6 +134,7 @@
             requestAnimationFrame(redraw);
         };
         
+        
         const keyDownHandler = (e) => {
             var keyPressed = e.which;
 
@@ -185,7 +186,7 @@
             }
             //socket.emit('movementUpdate', squares[hash]);
         };
-        const drawCirc = (data) => {
+       /* const drawCirc = (data) => {
           for (var i = 0; i < 10; ++i){
             let c = data[i];
             ctx.save()
@@ -197,7 +198,7 @@
             ctx.restore();
           }
           requestAnimationFrame(drawCirc);
-        }
+        }*/
         /*const sendWithLag = () => {
           socket.emit('movementUpdate', squares[hash]);
         };*/
@@ -217,9 +218,8 @@
             
             socket.on('updatedMovement', update);
             
-            socket.on('left', removeUser);
+            socket.on('left', removeUser);            
             
-            socket.on('moveCircles', drawCirc);
           
             document.body.addEventListener('keydown', keyDownHandler);
             document.body.addEventListener('keyup', keyUpHandler);

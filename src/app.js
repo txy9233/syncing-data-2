@@ -1,7 +1,6 @@
 const http = require('http');
 const socketio = require('socket.io');
 const xxh = require('xxhashjs');
-const now = require('performance-now');
 const fs = require('fs');
 
 const PORT = process.env.PORT || process.env.NODE_PORT || 3000;
@@ -17,17 +16,18 @@ const handler = (req, res) => {
   });
 };
 
-// object literal of circles to draw 
+/* // object literal of circles to draw 
 const circles = {};
 // used for circle movement
-let lastTime = 0;
+let lastTime = 0; */
 
 
 const app = http.createServer(handler);
 const io = socketio(app);
 
 app.listen(PORT);
-
+// botched circle drawing code
+/*
 const getRandom = (min, max) => (Math.random() * (max - min)) + min;
 
 
@@ -89,7 +89,9 @@ const moveCircles = () => {
       c.y += c.ySpeed * dt;
     }
   }
-};
+}; 
+
+*/
 
 io.on('connection', (sock) => {
   const socket = sock;
@@ -112,8 +114,8 @@ io.on('connection', (sock) => {
   };
 
   socket.emit('joined', socket.square);
-  io.sockets.in('room1').emit('moveCircles', circles);
-  setInterval(moveCircles, 100);
+  // io.sockets.in('room1').emit('moveCircles', circles);
+  // setInterval(moveCircles, 100);
 
   socket.on('movementUpdate', (data) => {
     socket.square = data;
