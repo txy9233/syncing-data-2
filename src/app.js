@@ -24,11 +24,11 @@ let lastTime = 0; */
 
 const app = http.createServer(handler);
 const io = socketio(app);
-
+const getRandom = (min, max) => (Math.random() * (max - min)) + min;
 app.listen(PORT);
 // botched circle drawing code
 /*
-const getRandom = (min, max) => (Math.random() * (max - min)) + min;
+
 
 
 // adapted from Boomshine, 330 assignment
@@ -102,8 +102,8 @@ io.on('connection', (sock) => {
   socket.square = {
     hash: xxh.h32(`${socket.id}${new Date().getTime()}`, 0xFFEE4422).toString(16),
     lastUpdate: new Date().getTime(),
-    x: 0,
-    y: 0,
+    x: getRandom(-1, 500)
+    y: getRandom(-1, 500),
     height: 50,
     width: 50,
     prevX: 0,
